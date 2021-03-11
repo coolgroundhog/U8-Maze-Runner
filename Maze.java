@@ -1,7 +1,4 @@
-package Maze;
-
-import java.util.Random;
-
+// package Maze;
 /**
  * This is the Maze class. It has all of the methods and information needed
  * to build a specific maze and have a MazeRunner get from the start to the end.
@@ -370,7 +367,7 @@ public class Maze {
             solution[i][0] = '|';
         }
         addPits();
-        printMap(solution);
+        //printMap(solution);
     }
     private void addPits(){
         solution[1][2] = '0';
