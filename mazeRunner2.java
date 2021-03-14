@@ -21,25 +21,11 @@ public class mazeRunner2 {
 		
 		boolean cont = true;
 		
+
 		while (cont) {
 			
-            String move = userMove(p);
-            
-            String move = "";
-            
-            if (myMap.computerPreferenceUp()){
-                move = "U";
-            }
-            if (myMap.computerPreferenceDown()){
-                move = "D";
-            }
-            if (myMap.computerPreferenceLeft()){
-                move = "L";
-            }
-            if (myMap.computerPreferenceRight()){
-                move = "R";
-            }
-
+			String move = userMove(p);
+			
             System.out.println("Variable move is" + move);
 
 			currentMoves++;
@@ -117,6 +103,13 @@ public class mazeRunner2 {
 				cont = false;
 				System.out.println("You ran out of moves and lost the game.");
 			}
+
+
+			//Tests for whether adjacent cell is an asterisk
+			System.out.println("Is comp preference up true? "+ myMap.computerPreferenceUp());
+			System.out.println("Is comp preference left true? "+ myMap.computerPreferenceLeft());
+			System.out.println("Is comp preference right true? "+ myMap.computerPreferenceRight());
+			System.out.println("Is comp preference down true? "+ myMap.computerPreferenceDown());
 		} 
 		
 		
