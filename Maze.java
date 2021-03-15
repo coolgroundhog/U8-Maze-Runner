@@ -176,7 +176,7 @@ public class Maze {
     }
 
     private boolean previousStep(int rowMove, int colMove){
-        if (myMap[row + rowMove][col + colMove] != '*') {
+        if (myMap[row + rowMove][col + colMove] == '.') {
             return true;
         }
         else{
@@ -185,16 +185,16 @@ public class Maze {
     }
 
     public boolean computerPreferenceRight(){
-        return (canMove(0,1) && previousStep(0,1));
+        return (previousStep(0,1));
     }
     public boolean computerPreferenceLeft(){
-        return (canMove(0,-1) && previousStep(0,-1));
+        return (previousStep(0,-1));
     }
     public boolean computerPreferenceUp(){
-        return (canMove(-1,0) && previousStep(-1,0));
+        return (previousStep(-1,0));
     }
     public boolean computerPreferenceDown(){
-        return (canMove(1,0) && previousStep(1,0));
+        return (previousStep(1,0));
     }
 
 

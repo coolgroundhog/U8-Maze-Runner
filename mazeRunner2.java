@@ -18,14 +18,90 @@ public class mazeRunner2 {
 		
 		//Call for print map function to display the map
 		
-		
+		String move = userMove(p);
+
+		if (move.equals("U")) {
+				
+			if (myMap.isThereAPit("U")) {
+				navigatePit(myMap, "U", p);
+				myMap.printMap();
+			} else if (myMap.canIMoveUp()) {
+				
+				myMap.moveUp();
+				myMap.printMap();
+			} else {
+				System.out.println("Unable to move, system has run into wall, pick new direction");
+				myMap.printMap();
+			}
+			
+			
+		} else if (move.equals("D")) {
+			
+			if (myMap.isThereAPit("D")) {
+				navigatePit(myMap, "D", p);
+				myMap.printMap();
+			} else if (myMap.canIMoveDown()) {
+				myMap.moveDown();
+				myMap.printMap();
+			} else {
+				System.out.println("Unable to move, system has run into wall, pick new direction");
+				myMap.printMap();
+			}
+			
+		} else if (move.equals("L")) {
+			
+			if (myMap.isThereAPit("L")) {
+				navigatePit(myMap, "L", p);
+				myMap.printMap();
+			} else if (myMap.canIMoveLeft()) {
+				myMap.moveLeft();
+				myMap.printMap();
+			} else {
+				System.out.println("Unable to move, system has run into wall, pick new direction");
+				myMap.printMap();
+			}
+			
+		} else if (move.equals("R")) {
+			
+			if (myMap.isThereAPit("R")) {
+				navigatePit(myMap, "R", p);
+				myMap.printMap();
+			} else if (myMap.canIMoveRight()) {
+				myMap.moveRight();
+				myMap.printMap();
+			} else {
+				System.out.println("Unable to move, system has run into wall, pick new direction");
+				myMap.printMap();
+			}
+			
+		}
+
+
+
+
+
+
+
+
 		boolean cont = true;
 		
 
 		while (cont) {
 			
-			String move = userMove(p);
 			
+			if (myMap.computerPreferenceUp()){
+				move = "U";
+			}
+			if (myMap.computerPreferenceDown()){
+				move = "D";
+			}
+			if (myMap.computerPreferenceLeft()){
+				move = "L";
+			}
+			if (myMap.computerPreferenceRight()){
+				move = "R";
+			}
+
             System.out.println("Variable move is" + move);
 
 			currentMoves++;
