@@ -87,8 +87,37 @@ public class mazeRunner2 {
 		
 
 		while (cont) {
+
+
+			if (myMap.computerPreferenceUp()==1){
+				move = "U";
+			}
+			else if (myMap.computerPreferenceDown()==1){
+				move = "D";
+			}
+			else if (myMap.computerPreferenceLeft()==1){
+				move = "L";
+			}
+			else if (myMap.computerPreferenceRight()==1){
+				move = "R";
+			}
 			
-			
+			if (myMap.computerPreferenceUp()!=1 && myMap.computerPreferenceDown()!=1 && myMap.computerPreferenceLeft()!=1 && myMap.computerPreferenceRight()!=1){
+				if (myMap.computerPreferenceUp()==2){
+					move = "U";
+				}
+				else if (myMap.computerPreferenceDown()==2){
+					move = "D";
+				}
+				else if (myMap.computerPreferenceLeft()==2){
+					move = "L";
+				}
+				else if (myMap.computerPreferenceRight()==2){
+					move = "R";
+				}
+			}
+
+			/*
 			if (myMap.computerPreferenceUp()){
 				move = "U";
 			}
@@ -101,6 +130,7 @@ public class mazeRunner2 {
 			if (myMap.computerPreferenceRight()){
 				move = "R";
 			}
+			*/
 
             System.out.println("Variable move is" + move);
 

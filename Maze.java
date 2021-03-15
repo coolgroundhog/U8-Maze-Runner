@@ -174,7 +174,7 @@ public class Maze {
             return false;
         }
     }
-
+/*
     private boolean previousStep(int rowMove, int colMove){
         if (myMap[row + rowMove][col + colMove] == '.') {
             return true;
@@ -183,7 +183,6 @@ public class Maze {
             return false;
         }
     }
-
     public boolean computerPreferenceRight(){
         return (previousStep(0,1));
     }
@@ -198,6 +197,31 @@ public class Maze {
     }
 
 
+    */
+    private int previousStep(int rowMove, int colMove){
+        if (myMap[row + rowMove][col + colMove] == '.') {
+            return(1);
+        }
+        else if (myMap[row + rowMove][col + colMove] == '*' || myMap[row + rowMove][col + colMove] == '0'){
+            return(2);
+        }
+        else{
+            return (3);
+        }
+    }
+
+    public int computerPreferenceRight(){
+        return (previousStep(0,1));
+    }
+    public int computerPreferenceLeft(){
+        return (previousStep(0,-1));
+    }
+    public int computerPreferenceUp(){
+        return (previousStep(-1,0));
+    }
+    public int computerPreferenceDown(){
+        return (previousStep(1,0));
+    }
 
     /**
      * Determines if your character can move right.
