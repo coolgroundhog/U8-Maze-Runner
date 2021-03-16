@@ -132,9 +132,11 @@ public class mazeRunner2 {
 					moveback = true;
 				}
 			}
-			else if (!moveback){
+			if (!moveback){
+				System.out.println("asdfadsfasdf");
 				if (previousMove.equals("R")){
 					move = "L";
+					System.out.println("AAAAA");
 				}
 				else if (previousMove.equals("U")){
 					move = "D";
@@ -144,6 +146,7 @@ public class mazeRunner2 {
 				}
 				else if (previousMove.equals("L")){
 					move = "R";
+					System.out.println("BBBBB");
 				}
 
 			}
