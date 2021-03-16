@@ -84,39 +84,71 @@ public class mazeRunner2 {
 
 
 		boolean cont = true;
+
+		boolean moveBack = false;
 		
 
 		while (cont) {
 
+			String previousMove = move;
+
+			System.out.println("previous move: " + previousMove);
+
+			boolean moveback = false;
 
 			if (myMap.computerPreferenceUp()==1){
 				move = "U";
+				moveback = true;
 			}
 			else if (myMap.computerPreferenceDown()==1){
 				move = "D";
+				moveback = true;
 			}
 			else if (myMap.computerPreferenceLeft()==1){
 				move = "L";
+				moveback = true;
 			}
 			else if (myMap.computerPreferenceRight()==1){
 				move = "R";
+				moveback = true;
 			}
 			
-			if (myMap.computerPreferenceUp()!=1 && myMap.computerPreferenceDown()!=1 && myMap.computerPreferenceLeft()!=1 && myMap.computerPreferenceRight()!=1){
-				if (myMap.computerPreferenceUp()==2){
+
+			if (myMap.computerPreferenceUp()!=1 && myMap.computerPreferenceDown()!=1 && myMap.computerPreferenceLeft()!=1 && myMap.computerPreferenceRight()!=1 ){
+				if (myMap.computerPreferenceUp()==2 && previousMove != "D"){
 					move = "U";
+					moveback = true;
 				}
-				else if (myMap.computerPreferenceDown()==2){
+				else if (myMap.computerPreferenceDown()==2 && previousMove != "U"){
 					move = "D";
+					moveback = true;
 				}
-				else if (myMap.computerPreferenceLeft()==2){
+				else if (myMap.computerPreferenceLeft()==2 && previousMove != "R"){
 					move = "L";
+					moveback = true;
 				}
-				else if (myMap.computerPreferenceRight()==2){
+				else if (myMap.computerPreferenceRight()==2 && previousMove != "L"){
 					move = "R";
+					moveback = true;
 				}
 			}
+			else if (!moveback){
+				if (previousMove.equals("R")){
+					move = "L";
+				}
+				else if (previousMove.equals("U")){
+					move = "D";
+				}
+				else if (previousMove.equals("D")){
+					move = "U";
+				}
+				else if (previousMove.equals("L")){
+					move = "R";
+				}
 
+			}
+
+			System.out.println("moveback: " + moveback);
 			/*
 			if (myMap.computerPreferenceUp()){
 				move = "U";
