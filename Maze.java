@@ -103,61 +103,12 @@ public class Maze {
         }
     }
     
-    public void curveJump(String dir) {
-        if(isThereAPit(dir)) {
-            if(dir.equals("R")) {
-            	if (canMove(0,2)) {
-            		 move(0, 2);
-            	} else if (canMove(1,1)){
-            		System.out.println("You see the wall and jump right.");
-            		move(1,1);
-            	} else if (canMove(-1,1)){
-            		System.out.println("You see the wall and jump left.");
-            		move(-1,1);
-            	} else {
-            		System.out.println("Dead end, you turn around");
-            	}
-			} else if (dir.equals("L")) {
-				if (canMove(0, -2)) {
-					move(0, -2);
-				} else if (canMove(1, -1)) {
-					System.out.println("You see the wall and jump left.");
-					move(1, -1);
-				} else if (canMove(-1, -1)) {
-					System.out.println("You see the wall and jump right.");
-					move(-1, -1);
-				} else {
-					System.out.println("Dead end, you turn around");
-				}
-			} else if (dir.equals("U")) {
-				if (canMove(-2, 0)) {
-					move(-2, 0);
-				} else if (canMove(-1, 1)) {
-					System.out.println("You see the wall and jump right.");
-					move(-1, 1);
-				} else if (canMove(-1, -1)) {
-					System.out.println("You see the wall and jump left.");
-					move(-1, -1);
-				} else {
-					System.out.println("Dead end, you turn around");
-				}
-			} else if (dir.equals("D")) {
-				if (canMove(2, 0)) {
-					move(2, 0);
-				} else if (canMove(1, -1)) {
-					System.out.println("You see the wall and jump right.");
-					move(1, -1);
-				} else if (canMove(1, 1)) {
-					System.out.println("You see the wall and jump left.");
-					move(1, 1);
-				} else {
-					System.out.println("Dead end, you turn around");
-				}
-			}
-        }
-    }
-
-
+    /*For given parameters x and y, sees x and y ahead of user if there is free space.
+    Asterisk = free space = return true
+    Border of map = false
+    Hole = false
+    Wall = false
+    */
     private boolean canMove(int rowMove, int colMove) {
         if (col + colMove > 20 || col + colMove < 0 ||
                 row + rowMove > 20 || row + rowMove < 0) {
@@ -174,31 +125,13 @@ public class Maze {
             return false;
         }
     }
-/*
-    private boolean previousStep(int rowMove, int colMove){
-        if (myMap[row + rowMove][col + colMove] == '.') {
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-    public boolean computerPreferenceRight(){
-        return (previousStep(0,1));
-    }
-    public boolean computerPreferenceLeft(){
-        return (previousStep(0,-1));
-    }
-    public boolean computerPreferenceUp(){
-        return (previousStep(-1,0));
-    }
-    public boolean computerPreferenceDown(){
-        return (previousStep(1,0));
-    }
 
-
+    /* Identifies what is around user and assigns numerical value to different objects.
+    1 = .
+    2 = * and 0
+    3 = -
     */
-    private int previousStep(int rowMove, int colMove){
+    private int checkSurroundings(int rowMove, int colMove){
         if (myMap[row + rowMove][col + colMove] == '.') {
             return(1);
         }
@@ -210,17 +143,18 @@ public class Maze {
         }
     }
 
+    //Checks left / up / right / down 
     public int computerPreferenceRight(){
-        return (previousStep(0,1));
+        return (checkSurroundings(0,1));
     }
     public int computerPreferenceLeft(){
-        return (previousStep(0,-1));
+        return (checkSurroundings(0,-1));
     }
     public int computerPreferenceUp(){
-        return (previousStep(-1,0));
+        return (checkSurroundings(-1,0));
     }
     public int computerPreferenceDown(){
-        return (previousStep(1,0));
+        return (checkSurroundings(1,0));
     }
 
     /**
@@ -268,7 +202,7 @@ public class Maze {
         } else {
             throw new IllegalArgumentException("ERROR: You cannot move that way");
         }
-        //printMap(myMap);
+        printMap(myMap);
     }
 
     /**
@@ -391,7 +325,7 @@ public class Maze {
             solution[i][0] = '|';
         }
         addPits();
-        //printMap(solution);
+        printMap(solution);
     }
     private void addPits(){
         solution[1][2] = '0';
