@@ -170,19 +170,23 @@ public class mazeRunnerFinal {
     
     //Runs when user runs encounters a pit
     public static void navigatePit(Maze m, String dir) {
+
+        //If user is doing the maze, it requires user input for whether they want to jump hole
         if (userChoice.equals("A")){
             System.out.println("There is a pit :O  Would you like to jump? (y,n) ");
             String input = userInput.next();
             
             if (input.substring(0,1).equals("y")) {
                 System.out.println("You jumped. \\(O.o)/ ");
-                m.curveJump(dir);
+                m.jumpOverPit(dir);
             } else {
                 System.out.println("You didn't jump");
             }
         }
+
+        //if computer is doing maze, jumps over pit automatically
         else if (userChoice.equals("B")){
-            m.curveJump(dir);
+            m.jumpOverPit(dir);
         }
     }
     
