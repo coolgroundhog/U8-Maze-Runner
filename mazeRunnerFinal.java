@@ -11,35 +11,41 @@ public class mazeRunnerFinal {
     //Number of moves user has done
     static int currentMoves = 0;
 
-    //While loop that goes on forever
+    //While loop that goes on until game ends
     static boolean cont = true;
 
+    //Stores previous move (for computer algorithm)
     static String previousMove;
 
+    //User input of whether they want to do maze themselves or have computer do it
     static String userChoice;
 
     public static void main(String[] args) {
 
         System.out.println("Hello, welcome to Maze Runner. Do you want do finish the maze (enter A) or do you want a computer to do so (enter B)?");
         userChoice = userInput.nextLine();
+
+        //User finish maze
         if (userChoice.equals("A")){
             System.out.println("Good luck!");
 
             while (cont){
                 userMovement();
                 checkArea();
-                System.out.println("1234");
                 currentMoves++;
                 checkWinOrLose();
             }
 
         }
 
+        //Computer finish maze
         else if (userChoice.equals("B")){
             System.out.println("Cool. Sit back and let the computer do the rest :)");
-            myMap.moveRight();
+            myMap.moveRight();//moves right at very first move so that it starts on the map. Important bc algorithm relies on 
+                                // scanning the area around user, which can't happen if user isn't on the map
+            
             while (cont){
-                previousMove = move;
+                previousMove = move; // stores previousMove as move before move is changed in computerMovement() to the new move user wants to do
                 computerMovement();
                 checkArea();
                 currentMoves++;
@@ -49,16 +55,17 @@ public class mazeRunnerFinal {
 
     }
 
+    //move = "U", "D", "L", or "R" – the next move to do
     public static String move;
 
     public static void userMovement() {
-        move = userMove(userInput);
-        //return userMove(userInput);
+        move = userMove(userInput);//sets move equal to userInput
     }
 
     public static void computerMovement(){
         move = "";
 
+        //PRIORITY #1: if there is a dot "." (unexplored space) around the user (X), the user will move to the dot
         if (myMap.computerPreferenceUp()==1){
             move = "U";
         }
@@ -72,8 +79,9 @@ public class mazeRunnerFinal {
             move = "R";
         }
 
-        if (move.equals("")){
-            System.out.println("ZZZZZ");
+        //PRIORITY #2: if there are no dots around the user (X), the user moves to an asterisk * or hole 0 (free space in maze),
+        //AND NOT THE OPPOSITE MOVE OF WHAT IT DID BEFORE. e.g. if I moved right as move #1, I'm not going to move left as move #2. This wastes moves
+        if (move.equals("")){//if move is still "", it means the if statements above have not been fulfilled
             if (myMap.computerPreferenceUp()==2 && !previousMove.equals("D")){
                 move = "U";
             }
@@ -88,11 +96,12 @@ public class mazeRunnerFinal {
             }
         }
 
-        if (move.equals("")){
-            System.out.println("asdfadsfasdf");
-            System.out.println("THE PREVIOUS MOVE WAS:" + previousMove);
+        //PRIORITY #3: if there are no dots around the user (X), the user moves to an asterisk * or hole 0 (free space in maze),
+        //AND DOES THE OPPOSITE MOVE OF WHAT IT DID BEFORE. e.g. if I moved right as move #2, I WILL move left as move #2.
+        //Priority #3 only occurs when there are three walls around user and they hit dead end, which means they now HAVE to move back from where they came from
+        if (move.equals("")){//if move is still "", it means the if statements above have not been fulfilled
             if (previousMove.equals("R")){
-                move = "L";
+                move = "L";//does move opposite of previousMove
             }
             else if (previousMove.equals("U")){
                 move = "D";
@@ -107,14 +116,12 @@ public class mazeRunnerFinal {
     }
 
 
+    //Checks around user
     public static void checkArea(){
-        //Prints map regardless of wall/hole/free space
-        //myMap.printMap();
 
         //Checks if there's a pit in direction user wants to head
         if (myMap.isThereAPit(move)) {
             navigatePit(myMap, move);//if there's a pit, go to navigatePit method to ask user if they want to jump
-
         }
 
         //Checks if user wanted to move up and if they can actually move up (aka if myMap.canIMoveUp = true)
@@ -137,8 +144,6 @@ public class mazeRunnerFinal {
         else {
             System.out.println("Unable to move, system has run into wall; pick new direction");
         }
-        
-        //Prints map regardless of wall/hole/free space
 
     }
     
@@ -184,23 +189,22 @@ public class mazeRunnerFinal {
     //Checks number of moves
     public static void checkWinOrLose(){
 
-        //Reminds user how many moves they have
+        //Reminds user how many moves they have. We changed total number of moves to 150 instead of 100
         if (currentMoves == 50) {
-            System.out.println("Warning, 50 moves remaining.");
+            System.out.println("Warning, 100 moves remaining.");
         } else if (currentMoves == 75) {
-            System.out.println("Warning, 15 moves remaining.");
-        } else if (currentMoves == 90) {
-            System.out.println("Warning, 10 moves remaining.");
+            System.out.println("Warning, 75 moves remaining.");
         } else if (currentMoves == 100) {
-            System.out.println("0 moves remaining.");
+            System.out.println("Warning, 50 moves remaining.");
+        } else if (currentMoves == 125) {
+            System.out.println("Warning, 25 moves remaining.");
         } 
         
-
         //Checks if user won or lost (lost = ran out of moves)
         if (myMap.didIWin()) {
             cont = false;
-            System.out.println("Congratulations! You completed the game.");
-        } else if (currentMoves == 100) {
+            System.out.println("Congratulations! You completed the game in " + currentMoves + " moves.");
+        } else if (currentMoves == 150) {
             cont = false;
             System.out.println("You ran out of moves and lost the game.");
         }
