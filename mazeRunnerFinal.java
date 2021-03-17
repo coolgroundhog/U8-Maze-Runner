@@ -14,9 +14,9 @@ public class mazeRunnerFinal {
     //While loop that goes on forever
     static boolean cont = true;
 
-    static String previousMove = "";
+    static String previousMove;
 
-    static String userChoice = "";
+    static String userChoice;
 
     public static void main(String[] args) {
 
@@ -30,9 +30,9 @@ public class mazeRunnerFinal {
                 checkArea();
                 System.out.println("1234");
                 currentMoves++;
+                checkWinOrLose();
             }
 
-            
         }
 
         else if (userChoice.equals("B")){
@@ -42,20 +42,14 @@ public class mazeRunnerFinal {
                 previousMove = move;
                 computerMovement();
                 checkArea();
-                System.out.println("5678");
                 currentMoves++;
+                checkWinOrLose();
             }
         }
 
     }
 
-    /*
-    public static void userMovement(){
-        String move = userMove(userInput);
-    
-    */
-
-    public static String move = "";
+    public static String move;
 
     public static void userMovement() {
         move = userMove(userInput);
@@ -63,48 +57,42 @@ public class mazeRunnerFinal {
     }
 
     public static void computerMovement(){
-        boolean moveback = false;
+        move = "";
 
         if (myMap.computerPreferenceUp()==1){
             move = "U";
-            moveback = true;
         }
         else if (myMap.computerPreferenceDown()==1){
             move = "D";
-            moveback = true;
         }
         else if (myMap.computerPreferenceLeft()==1){
             move = "L";
-            moveback = true;
         }
         else if (myMap.computerPreferenceRight()==1){
             move = "R";
-            moveback = true;
         }
 
-        if (myMap.computerPreferenceUp()!=1 && myMap.computerPreferenceDown()!=1 && myMap.computerPreferenceLeft()!=1 && myMap.computerPreferenceRight()!=1 ){
-            if (myMap.computerPreferenceUp()==2 && previousMove != ("D")){
+        if (move.equals("")){
+            System.out.println("ZZZZZ");
+            if (myMap.computerPreferenceUp()==2 && !previousMove.equals("D")){
                 move = "U";
-                moveback = true;
             }
-            else if (myMap.computerPreferenceDown()==2 && previousMove != "U"){
+            else if (myMap.computerPreferenceDown()==2 && !previousMove.equals("U")){
                 move = "D";
-                moveback = true;
             }
-            else if (myMap.computerPreferenceLeft()==2 && previousMove != "R"){
+            else if (myMap.computerPreferenceLeft()==2 && !previousMove.equals("R")){
                 move = "L";
-                moveback = true;
             }
-            else if (myMap.computerPreferenceRight()==2 && previousMove != "L"){
+            else if (myMap.computerPreferenceRight()==2 && !previousMove.equals("L")){
                 move = "R";
-                moveback = true;
             }
         }
-        if (!moveback){
+
+        if (move.equals("")){
             System.out.println("asdfadsfasdf");
+            System.out.println("THE PREVIOUS MOVE WAS:" + previousMove);
             if (previousMove.equals("R")){
                 move = "L";
-                System.out.println("AAAAA");
             }
             else if (previousMove.equals("U")){
                 move = "D";
@@ -114,14 +102,9 @@ public class mazeRunnerFinal {
             }
             else if (previousMove.equals("L")){
                 move = "R";
-                System.out.println("BBBBB");
             }
         }
     }
-
-   
-
-
 
 
     public static void checkArea(){
@@ -145,7 +128,6 @@ public class mazeRunnerFinal {
         //Same for right
         else if (move.equals("R") && (myMap.canIMoveRight())) {
             myMap.moveRight();
-            System.out.println("Going right");
         }
         //Same for left
         else if (move.equals("L") && (myMap.canIMoveLeft())) {
