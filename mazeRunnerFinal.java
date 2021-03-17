@@ -16,10 +16,12 @@ public class mazeRunnerFinal {
 
     static String previousMove = "";
 
+    static String userChoice = "";
+
     public static void main(String[] args) {
 
         System.out.println("Hello, welcome to Maze Runner. Do you want do finish the maze (enter A) or do you want a computer to do so (enter B)?");
-        String userChoice = userInput.nextLine();
+        userChoice = userInput.nextLine();
         if (userChoice.equals("A")){
             System.out.println("Good luck!");
 
@@ -35,6 +37,7 @@ public class mazeRunnerFinal {
 
         else if (userChoice.equals("B")){
             System.out.println("Cool. Sit back and let the computer do the rest :)");
+            myMap.moveRight();
             while (cont){
                 previousMove = move;
                 computerMovement();
@@ -180,15 +183,20 @@ public class mazeRunnerFinal {
     
     //Runs when user runs encounters a pit
     public static void navigatePit(Maze m, String dir) {
-		System.out.println("There is a pit :O  Would you like to jump? (y,n) ");
-		String input = userInput.next();
-		
-		if (input.substring(0,1).equals("y")) {
-			System.out.println("You jumped. \\(O.o)/ ");
-			m.curveJump(dir);
-		} else {
-			System.out.println("You didn't jump");
-		}
+        if (userChoice.equals("A")){
+            System.out.println("There is a pit :O  Would you like to jump? (y,n) ");
+            String input = userInput.next();
+            
+            if (input.substring(0,1).equals("y")) {
+                System.out.println("You jumped. \\(O.o)/ ");
+                m.curveJump(dir);
+            } else {
+                System.out.println("You didn't jump");
+            }
+        }
+        else if (userChoice.equals("B")){
+            m.curveJump(dir);
+        }
     }
     
     //Checks number of moves
