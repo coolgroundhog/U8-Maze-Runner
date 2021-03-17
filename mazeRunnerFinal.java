@@ -2,8 +2,8 @@ import java.util.Scanner;
 
 public class mazeRunnerFinal {
 
-    //Constructor for maze from Maze.java
-    static Maze myMap = new Maze();
+    //makes Maze from Maze.java
+    public static Maze myMap = new Maze();
 
     //Scan for user input
     static Scanner userInput = new Scanner(System.in);	
@@ -23,6 +23,8 @@ public class mazeRunnerFinal {
 
             while (cont){
                 userMovement();
+                checkArea();
+                System.out.println("1234");
                 currentMoves++;
             }
 
@@ -38,28 +40,34 @@ public class mazeRunnerFinal {
     }
 
     
-    public static void userMovement() {
-        String move = mazeRunnerFinalUser.userMoveSelection();
+    public static String userMovement() {
+        return userMove(userInput);
+    }
+
+    public static void checkArea(){
+        //Prints map regardless of wall/hole/free space
+        myMap.printMap();
+        System.out.println("adsfasdf");
 
         //Checks if there's a pit in direction user wants to head
-        if (myMap.isThereAPit(move)) {
-            navigatePit(myMap, move, userInput);//if there's a pit, go to navigatePit method to ask user if they want to jump
+        if (myMap.isThereAPit(userMovement())) {
+            navigatePit(myMap, userMovement(), userInput);//if there's a pit, go to navigatePit method to ask user if they want to jump
 
         }
         //Checks if user wanted to move up and if they can actually move up (aka if myMap.canIMoveUp = true)
-        else if (move.equals("U") && (myMap.canIMoveUp())) {
+        else if (userMovement().equals("U") && (myMap.canIMoveUp())) {
             myMap.moveUp();
         }
         //Same for down direction
-        else if (move.equals("D") && (myMap.canIMoveDown())) {
+        else if (userMovement().equals("D") && (myMap.canIMoveDown())) {
             myMap.moveDown();
         }
         //Same for right
-        else if (move.equals("R") && (myMap.canIMoveRight())) {
+        else if (userMovement().equals("R") && (myMap.canIMoveRight())) {
             myMap.moveRight();
         }
         //Same for left
-        else if (move.equals("L") && (myMap.canIMoveLeft())) {
+        else if (userMovement().equals("L") && (myMap.canIMoveLeft())) {
             myMap.moveLeft();
         }
         //If none of the else if statements worked, it means that the user encounters a wall
@@ -68,7 +76,7 @@ public class mazeRunnerFinal {
         }
         
         //Prints map regardless of wall/hole/free space
-        myMap.printMap();
+
     }
 
     
