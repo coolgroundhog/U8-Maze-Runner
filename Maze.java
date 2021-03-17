@@ -325,7 +325,6 @@ public class Maze {
             solution[i][0] = '|';
         }
         addPits();
-        printMap(solution);
     }
     private void addPits(){
         solution[1][2] = '0';
