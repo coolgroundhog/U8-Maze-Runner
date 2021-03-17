@@ -1,4 +1,4 @@
-package Maze;
+// package Maze;
 
 import java.util.Scanner;
 
@@ -24,7 +24,7 @@ public class mazeRunner {
 		while (cont) {
 			
 			String move = userMove(p);
-			
+
 			currentMoves++;
 			
 			if (move.equals("U")) {
@@ -81,6 +81,9 @@ public class mazeRunner {
 					myMap.printMap();
 				}
 				
+			} else if (move.equals("E")) {
+				myMap.computerPreferenceUp();
+
 			}
 			
 			if (currentMoves == 50) {
