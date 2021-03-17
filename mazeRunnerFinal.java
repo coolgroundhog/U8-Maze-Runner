@@ -143,6 +143,7 @@ public class mazeRunnerFinal {
         //If none of the else if statements worked, it means that the user encounters a wall
         else {
             System.out.println("Unable to move, system has run into wall; pick new direction");
+            myMap.printMap();
         }
 
     }
